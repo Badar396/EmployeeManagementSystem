@@ -6,9 +6,7 @@
 package src;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.awt.CardLayout;
 /**
  *
  * @author Badar Muneer
@@ -18,12 +16,25 @@ public class HomeScreen extends javax.swing.JFrame {
     /**
      * Creates new form HomeScreen
      */
+    private final HomeScreenDisplay homeScreenDisplay;
+    private final ProjectMainScreen projectScreen;
+    private final EmployeeScreen employeeScreen;
+    private final DepartmentScreen departmentScreen;
+    //private EmployeeScreen employeeScreen;
     private boolean isMenuOpened;
     public HomeScreen() 
     {
-        
+        projectScreen=new ProjectMainScreen();
+        homeScreenDisplay=new HomeScreenDisplay();
+        employeeScreen=new EmployeeScreen();
+        departmentScreen=new DepartmentScreen();
+        //employeeScreen=new EmployeeScreen();
         initComponents();
-        this.sideMenuPanel.setSize(0,this.getHeight());
+        //HomeScreenDisplay display= new HomeScreenDisplay();
+        cardDisplayPanel.add(homeScreenDisplay,"homeScreen");
+        cardDisplayPanel.add(projectScreen,"projectMainScreen");
+        cardDisplayPanel.add(employeeScreen,"employeeScreen");
+        cardDisplayPanel.add(departmentScreen,"departmentScreen");
     }
 
     /**
@@ -44,16 +55,16 @@ public class HomeScreen extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         projectLable = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
+        homeLabel = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         headingLabel = new javax.swing.JLabel();
         menuLabelIcon = new javax.swing.JLabel();
+        cardDisplayPanel = new javax.swing.JPanel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Management System");
-        setPreferredSize(new java.awt.Dimension(830, 580));
 
         mainPanel.setBackground(new java.awt.Color(51, 255, 204));
 
@@ -65,18 +76,38 @@ public class HomeScreen extends javax.swing.JFrame {
         employeeMenuLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         employeeMenuLabel.setForeground(new java.awt.Color(255, 255, 255));
         employeeMenuLabel.setText("Employees");
+        employeeMenuLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                employeeMenuLabelMouseClicked(evt);
+            }
+        });
 
         deptLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         deptLabel.setForeground(new java.awt.Color(255, 255, 255));
         deptLabel.setText("Departments");
+        deptLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deptLabelMouseClicked(evt);
+            }
+        });
 
         projectLable.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         projectLable.setForeground(new java.awt.Color(255, 255, 255));
         projectLable.setText("Projects");
+        projectLable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                projectLableMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Dummy");
+        homeLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        homeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        homeLabel.setText("Home");
+        homeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout sideMenuPanelLayout = new javax.swing.GroupLayout(sideMenuPanel);
         sideMenuPanel.setLayout(sideMenuPanelLayout);
@@ -95,29 +126,29 @@ public class HomeScreen extends javax.swing.JFrame {
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(deptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator4))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(homeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideMenuPanelLayout.setVerticalGroup(
             sideMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
+                .addComponent(homeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(employeeMenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projectLable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
 
         headingLabel.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -131,33 +162,37 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        cardDisplayPanel.setLayout(new java.awt.CardLayout());
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(sideMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(menuLabelIcon)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(menuLabelIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 534, Short.MAX_VALUE)
                 .addComponent(headingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(207, 207, 207))
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(sideMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cardDisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(sideMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(sideMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(menuLabelIcon)
                     .addComponent(headingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cardDisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,6 +230,37 @@ public class HomeScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuLabelIconMouseClicked
 
+    private void homeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeLabelMouseClicked
+        // TODO add your handling code here:
+        CardLayout card=(CardLayout)cardDisplayPanel.getLayout();
+        card.show(cardDisplayPanel,"homeScreen");
+        this.homeScreenDisplay.setLabelsText();
+        
+        
+       // this.cardLayout.show(cardDisplayPanel,"HomeScreen");
+    }//GEN-LAST:event_homeLabelMouseClicked
+
+    private void employeeMenuLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeMenuLabelMouseClicked
+        // TODO add your handling code here:
+        
+        CardLayout card=(CardLayout)cardDisplayPanel.getLayout();
+        card.show(cardDisplayPanel,"employeeScreen");
+    }//GEN-LAST:event_employeeMenuLabelMouseClicked
+
+    private void projectLableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projectLableMouseClicked
+        // TODO add your handling code here:
+        
+        CardLayout card=(CardLayout)this.cardDisplayPanel.getLayout();
+        card.show(cardDisplayPanel, "projectMainScreen");
+    }//GEN-LAST:event_projectLableMouseClicked
+
+    private void deptLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deptLabelMouseClicked
+        // TODO add your handling code here:
+        
+        CardLayout card=(CardLayout)cardDisplayPanel.getLayout();
+        card.show(cardDisplayPanel, "departmentScreen");
+    }//GEN-LAST:event_deptLabelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -231,11 +297,12 @@ public class HomeScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel cardDisplayPanel;
     private javax.swing.JLabel deptLabel;
     private javax.swing.JLabel employeeMenuLabel;
     private javax.swing.JLabel headingLabel;
+    private javax.swing.JLabel homeLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
